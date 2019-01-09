@@ -73,6 +73,31 @@
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.c">
       <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Rule.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cell.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleBrownian.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleMiddle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CellBrownianMotion2d.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleSpring.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleRepulse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleCenter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -166,6 +191,42 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.h">
       <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cell.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Rule.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CellPopulation.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CellMotion.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CellBrownianMotion2d.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleBrownian.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleMiddle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleSpring.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleRepulse.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleTypes.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleCenter.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

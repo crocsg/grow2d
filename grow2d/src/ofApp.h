@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxMQTT.h"
+#include "CellPopulation.h"
+#include "RuleFactory.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +23,25 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+
+		CPopulation m_pop;
+		VRule		m_rules;
+
+		void onOnline();
+		void onOffline();
+		void onHelp();
+		void onScale(std::string msg);
+		void onSpeed(std::string msg);
+		void onRepulse(std::string msg);
+		void onCenter(std::string msg);
+		void onBrownian(std::string msg);
+		void onMiddle(std::string msg);
+		void onMaxPts(std::string msg);
+		void onMessage(ofxMQTTMessage &msg);
+
+		ofxMQTT client;
+		float m_scale;
+		size_t m_maxpts;
+		float m_speed;
+		int m_nb_start_pt;
 };

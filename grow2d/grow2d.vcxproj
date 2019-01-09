@@ -205,8 +205,17 @@
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
+    <ClCompile Include="src\Cell.cpp" />
+    <ClCompile Include="src\CellBrownianMotion2d.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\Rule.cpp" />
+    <ClCompile Include="src\RuleBrownian.cpp" />
+    <ClCompile Include="src\RuleCenter.cpp" />
+    <ClCompile Include="src\RuleFactory.cpp" />
+    <ClCompile Include="src\RuleMiddle.cpp" />
+    <ClCompile Include="src\RuleRepulse.cpp" />
+    <ClCompile Include="src\RuleSpring.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\config.h" />
@@ -228,7 +237,19 @@
     <ClInclude Include="..\..\..\addons\ofxMQTT\src\ofxMQTT.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="src\Cell.h" />
+    <ClInclude Include="src\CellBrownianMotion2d.h" />
+    <ClInclude Include="src\CellMotion.h" />
+    <ClInclude Include="src\CellPopulation.h" />
+    <ClInclude Include="src\RuleBrownian.h" />
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="src\Rule.h" />
+    <ClInclude Include="src\RuleCenter.h" />
+    <ClInclude Include="src\RuleFactory.h" />
+    <ClInclude Include="src\RuleMiddle.h" />
+    <ClInclude Include="src\RuleRepulse.h" />
+    <ClInclude Include="src\RuleSpring.h" />
+    <ClInclude Include="src\RuleTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
