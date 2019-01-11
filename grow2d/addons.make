@@ -1,2 +1,3 @@
+ofxVectorGraphics
 ofxXmlSettings
 ofxMQTT

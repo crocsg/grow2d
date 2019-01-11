@@ -11,7 +11,7 @@ public:
 	ofVec3f speed(cell_container::iterator prev, cell_container::iterator cur, cell_container::iterator next)
 	{
 		ofVec3f v = ((prev->pos() + next->pos()) / 2) - cur->pos();
-		
+		v.limit(2);
 		return v;
 	}
 

@@ -4,16 +4,16 @@ std::string m_last_message;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	client.begin("coyote.sgodin.com");
-	client.connect("ofx");
-	client.subscribe("/ofx/cell/param/input");
+	m_clientmqtt.begin("devmqtt");
+	m_clientmqtt.connect("ofx");
+	m_clientmqtt.subscribe("/ofx/cell/param/input");
 
-	ofAddListener(client.onOnline, this, &ofApp::onOnline);
-	ofAddListener(client.onOffline, this, &ofApp::onOffline);
-	ofAddListener(client.onMessage, this, &ofApp::onMessage); 
+	ofAddListener(m_clientmqtt.onOnline, this, &ofApp::onOnline);
+	ofAddListener(m_clientmqtt.onOffline, this, &ofApp::onOffline);
+	ofAddListener(m_clientmqtt.onMessage, this, &ofApp::onMessage); 
 
 	CRuleFactory rf;
-	m_nb_start_pt = 6;
+	m_nb_start_pt = 8;
 
 	for (int i = 0; i < 360; i += 360/m_nb_start_pt)
 	{
@@ -27,11 +27,13 @@ void ofApp::setup(){
 	m_scale = 1;
 	m_speed = 1;
 	m_maxpts = 2000;
+	m_save = false;
+	m_save_svg = false;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	client.update();
+	m_clientmqtt.update();
 
 	for (auto it = m_rules.begin(); it != m_rules.end(); ++it)
 	{
@@ -64,8 +66,8 @@ void ofApp::update(){
 		
 	}
 
-	client.publish("/ofx/cell/output", "update");
-
+	//m_clientmqtt.publish("/ofx/cell/output", "update");
+	
 }
 
 float m_min = 0;
@@ -77,28 +79,81 @@ void ofApp::draw(){
 	ofNoFill();
 	ofSetColor(255, 255, 0);
 
+	if (m_save_svg)
+	{
+		ostringstream fname;
+		fname << "hyphae_save" << ofGetTimestampString() << ".svg";
+		ofBeginSaveScreenAsSVG(fname.str());
+		ofBackground(255);
+	}
+
 	ofPushMatrix();
 	ofTranslate(ofGetViewportWidth() / 2, ofGetViewportHeight() / 2);
 	ofScale(m_scale, m_scale, 1);
+	if (m_save)
+	{
+		m_output.beginEPS("saved.eps", 0,0, ofGetWidth () * m_scale, ofGetHeight () * m_scale);
+		
+		
+	}
 	if (m_pop.getContainer().size() > 2)
 	{	
 		ofColor color;
 		float min = 255;
 		float max = 0;
+
+		
+		
+		
+		ofPath path;
+		path.setFilled(false);
+		path.setStrokeWidth(1);
+		path.setStrokeColor(ofColor(0,0,0));
+		path.curveTo(m_pop.getContainer().front().pos().x, m_pop.getContainer().front().pos().y);
+		
 		for (auto it = m_pop.getContainer().begin(); it != m_pop.getContainer().end() - 1; ++it)
 		{
 			auto nit = it + 1;
 			float d = it->getSpeed().lengthSquared();
 			float c = ofMap(d, m_min, m_max, 85, 170, true);
-			color.setHsb(c, 255, 255);
-			ofSetColor(color);
-			ofLine(it->getPos(), nit->getPos());
+			if (m_save_svg)
+			{
+				ofSetColor(0);
+				
+			}
+			else
+			{
+				color.setHsb(c, 255, 255);
+				ofSetColor(color);
+				
+			}
+			if (! m_save_svg)
+				ofLine(it->getPos(), nit->getPos());
+			path.curveTo(nit->pos().x, nit->pos().y);
+			
 			if (d < min) min = d;
 			if (d > max) max = d;
 			
 		}
 		ofLine(m_pop.getContainer().back().pos(), m_pop.getContainer().front().pos());
+		path.curveTo(m_pop.getContainer().front().pos().x, m_pop.getContainer().front().pos().y);
+		path.curveTo(m_pop.getContainer().at(1).pos().x, m_pop.getContainer().at(1).pos().y);
+					
+		if (!m_save_svg)
+		{
+			path.setFilled(true);
+			path.setFillColor(ofColor(0, 255, 0, 32));
+			path.setStrokeColor(ofColor(0, 255, 0, 32));
+			path.setStrokeWidth(0);
 
+		}
+		path.draw();
+		if (m_save_svg)
+		{
+			
+			ofEndSaveScreenAsSVG();
+			m_save_svg = false;
+		}
 		m_min = min;
 		m_max = max;
 	
@@ -122,11 +177,18 @@ void ofApp::draw(){
 
 	ofDrawBitmapString(s.str(), 10, 10);
 	ofDrawBitmapString(m_last_message, 10, 24);
+
+	if (m_save)
+	{
+		m_output.endEPS();
+		m_save = false;
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	if (key == 'S' || key == 's')
+		m_save_svg = true;
 }
 
 //--------------------------------------------------------------
@@ -188,7 +250,7 @@ void ofApp::onOffline()
 }
 void ofApp::onHelp()
 {
-	client.publish("/ofx/cell/output", "reset\n");
+	m_clientmqtt.publish("/ofx/cell/output", "reset\n");
 }
 void ofApp::onScale(std::string msg)
 {

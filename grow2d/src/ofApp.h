@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxMQTT.h"
+#include "ofxVectorGraphics.h"
 #include "CellPopulation.h"
 #include "RuleFactory.h"
 
@@ -24,8 +25,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		CPopulation m_pop;
-		VRule		m_rules;
+		
 
 		void onOnline();
 		void onOffline();
@@ -39,9 +39,16 @@ class ofApp : public ofBaseApp{
 		void onMaxPts(std::string msg);
 		void onMessage(ofxMQTTMessage &msg);
 
-		ofxMQTT client;
+		ofxMQTT m_clientmqtt;
+		ofxVectorGraphics m_output;
+		
+		CPopulation m_pop;
+		VRule		m_rules;
+
 		float m_scale;
 		size_t m_maxpts;
 		float m_speed;
 		int m_nb_start_pt;
+		bool m_save;
+		bool m_save_svg;
 };
