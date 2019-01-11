@@ -29,6 +29,7 @@ void ofApp::setup(){
 	m_maxpts = 2000;
 	m_save = false;
 	m_save_svg = false;
+	m_contour = false;
 }
 
 //--------------------------------------------------------------
@@ -127,7 +128,7 @@ void ofApp::draw(){
 				ofSetColor(color);
 				
 			}
-			if (! m_save_svg)
+			if (! m_save_svg && m_contour) 
 				ofLine(it->getPos(), nit->getPos());
 			path.curveTo(nit->pos().x, nit->pos().y);
 			
@@ -135,7 +136,8 @@ void ofApp::draw(){
 			if (d > max) max = d;
 			
 		}
-		ofLine(m_pop.getContainer().back().pos(), m_pop.getContainer().front().pos());
+		if (!m_save_svg && m_contour)
+			ofLine(m_pop.getContainer().back().pos(), m_pop.getContainer().front().pos());
 		path.curveTo(m_pop.getContainer().front().pos().x, m_pop.getContainer().front().pos().y);
 		path.curveTo(m_pop.getContainer().at(1).pos().x, m_pop.getContainer().at(1).pos().y);
 					
@@ -264,6 +266,16 @@ void ofApp::onScale(std::string msg)
 		m_scale = factor;
 }
 
+void ofApp::onContour(std::string msg)
+{
+	istringstream s(msg);
+	string cmd;
+	float factor = 0;
+
+	s >> cmd >> factor;
+		
+	m_contour  = (factor > 0.0) ? true : false;
+}
 void ofApp::onSpeed (std::string msg)
 {
 	istringstream s(msg);
@@ -410,6 +422,10 @@ void ofApp::onMessage(ofxMQTTMessage & msg)
 	else if (m_last_message.find("max") != -1)
 	{
 		onMaxPts(m_last_message);
+	}
+	else if (m_last_message.find("contour") != -1)
+	{
+		onContour(m_last_message);
 	}
 	else if (m_last_message.find("speed") != -1)
 	{

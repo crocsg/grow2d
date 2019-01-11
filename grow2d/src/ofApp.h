@@ -31,6 +31,7 @@ class ofApp : public ofBaseApp{
 		void onOffline();
 		void onHelp();
 		void onScale(std::string msg);
+		void onContour(std::string msg);
 		void onSpeed(std::string msg);
 		void onRepulse(std::string msg);
 		void onCenter(std::string msg);
@@ -51,4 +52,5 @@ class ofApp : public ofBaseApp{
 		int m_nb_start_pt;
 		bool m_save;
 		bool m_save_svg;
+		bool m_contour;
 };
