@@ -11,7 +11,7 @@ class CRule
 public:
 	CRule() {}
 	CRule(float coef) { m_coef = coef; }
-	virtual void getspeed(cell_container& cells, float param) = 0;
+	virtual void getspeed(CPopulation& pop, float param) = 0;
 	virtual int gettype(void) = 0;
 	float getCoef(void) { return m_coef; }
 	void setCoef(float coef) { m_coef = coef; }

@@ -9,7 +9,7 @@ class CRuleCenter : public CRule
 public:
 	CRuleCenter() {};
 	CRuleCenter(float coef) { m_coef = coef; };
-	virtual void getspeed(cell_container & cells, float param) override;
+	virtual void getspeed(CPopulation& pop, float param) override;
 
 	
 

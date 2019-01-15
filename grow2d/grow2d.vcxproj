@@ -210,6 +210,10 @@ I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDi
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
     <ClCompile Include="src\Cell.cpp" />
     <ClCompile Include="src\CellBrownianMotion2d.cpp" />
+    <ClCompile Include="src\CellGrid.cpp" />
+    <ClCompile Include="src\CellGridWorld.cpp" />
+    <ClCompile Include="src\CellPopulation.cpp" />
+    <ClCompile Include="src\RuleRepulseGrid.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="src\Rule.cpp" />
@@ -243,10 +247,14 @@ I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDi
     <ClInclude Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
+    <ClInclude Include="src\CellMemContainer.h" />
     <ClInclude Include="src\Cell.h" />
     <ClInclude Include="src\CellBrownianMotion2d.h" />
+    <ClInclude Include="src\CellGrid.h" />
+    <ClInclude Include="src\CellGridWorld.h" />
     <ClInclude Include="src\CellMotion.h" />
     <ClInclude Include="src\CellPopulation.h" />
+    <ClInclude Include="src\RuleRepulseGrid.h" />
     <ClInclude Include="src\RuleBrownian.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\Rule.h" />

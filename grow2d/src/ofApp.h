@@ -9,6 +9,7 @@
 class ofApp : public ofBaseApp{
 
 	public:
+		
 		void setup();
 		void update();
 		void draw();
@@ -32,12 +33,14 @@ class ofApp : public ofBaseApp{
 		void onHelp();
 		void onScale(std::string msg);
 		void onContour(std::string msg);
+		void onFill(std::string msg);
 		void onSpeed(std::string msg);
 		void onRepulse(std::string msg);
 		void onCenter(std::string msg);
 		void onBrownian(std::string msg);
 		void onMiddle(std::string msg);
 		void onMaxPts(std::string msg);
+		void onDie(std::string msg);
 		void onMessage(ofxMQTTMessage &msg);
 
 		ofxMQTT m_clientmqtt;
@@ -53,4 +56,10 @@ class ofApp : public ofBaseApp{
 		bool m_save;
 		bool m_save_svg;
 		bool m_contour;
+		bool m_draw_fill;
+
+		float m_dieprob;
+
+		float m_min = 0;
+		float m_max = 1;
 };

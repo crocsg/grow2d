@@ -9,7 +9,7 @@ public:
 	CRuleBrownian(float f) : CRule(f) {}
 
 	// Inherited via CRule
-	virtual void getspeed(cell_container & cells, float param) override;
+	virtual void getspeed(CPopulation& pop, float param) override;
 
 
 	// Inherited via CRule

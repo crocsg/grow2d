@@ -1,6 +1,8 @@
 #include "ofApp.h"
 
 std::string m_last_message;
+const size_t WORLDSIZEX = 2048;
+const size_t WORLDSIZEY = 1024;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -13,66 +15,134 @@ void ofApp::setup(){
 	ofAddListener(m_clientmqtt.onMessage, this, &ofApp::onMessage); 
 
 	CRuleFactory rf;
-	m_nb_start_pt = 8;
+	m_nb_start_pt = 100;
 
-	for (int i = 0; i < 360; i += 360/m_nb_start_pt)
+	
+	m_pop.getGrid().setWorldSize(WORLDSIZEX, WORLDSIZEY);
+	m_pop.getGrid().setGridSize(WORLDSIZEX / 16, WORLDSIZEY / 16);
+	m_pop.getGrid().setWorldOffset(WORLDSIZEX / 2, WORLDSIZEY / 2);
+	m_pop.getGrid().begin();
+	m_pop.setPlayField(-(WORLDSIZEX / 2.0) + 1., WORLDSIZEX / 2.0 - 1., -(WORLDSIZEY / 2.0) + 1., WORLDSIZEY / 2.0 - 1.);
+	
+
+	for (float i = 0; i < 360.0; i += 360./m_nb_start_pt)
 	{
-		m_pop.getContainer().push_back(CCell(cos(ofDegToRad(i)) * 16, sin (ofDegToRad(i)) * 16));
+		m_pop.addCell(CCell(cos(ofDegToRad(i)) * 32, sin(ofDegToRad(i)) * 32));
 	}
+
+	m_pop.updateposition(true);
+
 	m_rules.push_back(rf.BuildRule(BROWNIAN, 0.01));
 	m_rules.push_back(rf.BuildRule(MIDDLE, 0.01));
 	m_rules.push_back(rf.BuildRule(SPRING, 0.5));
 	m_rules.push_back(rf.BuildRule(REPULSE, 0.5));
 	m_rules.push_back(rf.BuildRule(CENTER, 1));
-	m_scale = 1;
+
+
+	m_scale = 3;
 	m_speed = 1;
-	m_maxpts = 2000;
+	m_maxpts = 10; // m_nb_start_pt; // 200;
 	m_save = false;
 	m_save_svg = false;
-	m_contour = false;
+	m_contour = true;
+	m_draw_fill = false;
+	
+	m_dieprob = 0;
+
+	m_min = 0;
+	m_max = 1;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	m_clientmqtt.update();
 
-	for (auto it = m_rules.begin(); it != m_rules.end(); ++it)
+	try
 	{
-		(*it)->getspeed(m_pop.getContainer(), 0);
-	}
+		m_clientmqtt.update();
 
-	bool todo = false;
-	if (m_pop.getContainer().size() < m_maxpts)
-	{
-		do
+		if (!m_clientmqtt.connected())
 		{
-			todo = false;
-			for (auto nit = m_pop.getContainer().begin(); nit != m_pop.getContainer().end() - 1; ++nit)
-			{
-				auto nnit = nit + 1;
-				float d = nit->pos().squareDistance(nnit->pos());
-				if (d > 5 * 5)
-				{
-					ofVec3f p = (nit->pos() + nnit->pos()) / 2;
-					m_pop.getContainer().insert(nnit, CCell(p.x, p.y));
-					todo = true;
-					break;
-				}
-			}
-		} while (todo);
-	}
-	for (auto cit = m_pop.getContainer().begin(); cit != m_pop.getContainer().end(); ++cit)
-	{
-		cit->updatePosition(m_speed);
-		
-	}
+			cout << "mqtt try reconnect" << endl;
+			ofRemoveListener(m_clientmqtt.onOnline, this, &ofApp::onOnline);
+			ofRemoveListener(m_clientmqtt.onOffline, this, &ofApp::onOffline);
+			ofRemoveListener(m_clientmqtt.onMessage, this, &ofApp::onMessage);
 
-	//m_clientmqtt.publish("/ofx/cell/output", "update");
-	
+			m_clientmqtt.connect("ofx");
+			ofAddListener(m_clientmqtt.onOnline, this, &ofApp::onOnline);
+			ofAddListener(m_clientmqtt.onOffline, this, &ofApp::onOffline);
+			ofAddListener(m_clientmqtt.onMessage, this, &ofApp::onMessage);
+		}
+		
+			
+
+		for (auto it = m_rules.begin(); it != m_rules.end(); ++it)
+		{
+			(*it)->getspeed(m_pop, 0);
+		}
+
+		bool todo = false;
+		if (ofGetFrameNum() % 3 == 0)
+		{
+			int cnt = 0;
+
+			if (m_pop.getContainer().size() < m_maxpts)
+			{
+				do
+				{
+					todo = false;
+					for (auto nit = m_pop.getContainer().begin(); nit != m_pop.getContainer().end() - 1; ++nit)
+					{
+						auto nnit = nit + 1;
+						float d = (*nit)->pos().squareDistance((*nnit)->pos());
+						if (d > 5 * 5)
+						{
+							ofVec3f p = ((*nit)->pos() + (*nnit)->pos()) / 2;
+							//m_pop.getContainer().insert(nnit, CCell(p.x, p.y));
+							m_pop.insertCell(nnit, CCell(p.x, p.y));
+							cnt++;
+							todo = true;
+							break;
+						}
+					}
+				} while (todo);
+
+				//m_pop.updateptr();
+			}
+		}
+
+		if (ofGetFrameNum() % 7 == 1)
+		{
+			if (m_dieprob > 0.00001)
+			{
+				std::vector<CCell *> styx;
+				for (auto it = m_pop.getContainer().begin(); it != m_pop.getContainer().end(); ++it)
+				{
+					if (ofRandom(1) < m_dieprob)
+					{
+						// kill the cell
+						styx.push_back(*it);
+					}
+				}
+				for (auto kit = styx.begin(); kit != styx.end(); kit++)
+				{
+					m_pop.removecell(*kit);
+				}
+				//m_dieprob = 0;
+			}
+		}
+
+		m_pop.updateposition();
+
+		//m_clientmqtt.publish("/ofx/cell/output", "update");
+	}
+	catch (...)
+	{
+		cout << "Exception " << endl;
+		throw;
+	}
 }
 
-float m_min = 0;
-float m_max = 1;
+
 //--------------------------------------------------------------
 void ofApp::draw(){
 
@@ -91,32 +161,25 @@ void ofApp::draw(){
 	ofPushMatrix();
 	ofTranslate(ofGetViewportWidth() / 2, ofGetViewportHeight() / 2);
 	ofScale(m_scale, m_scale, 1);
-	if (m_save)
-	{
-		m_output.beginEPS("saved.eps", 0,0, ofGetWidth () * m_scale, ofGetHeight () * m_scale);
-		
-		
-	}
+	
+
 	if (m_pop.getContainer().size() > 2)
 	{	
 		ofColor color;
-		float min = 255;
+		float min = 256;
 		float max = 0;
-
-		
-		
-		
+			
 		ofPath path;
 		path.setFilled(false);
 		path.setStrokeWidth(1);
 		path.setStrokeColor(ofColor(0,0,0));
-		path.curveTo(m_pop.getContainer().front().pos().x, m_pop.getContainer().front().pos().y);
+		path.curveTo(m_pop.getContainer().front()->pos().x, m_pop.getContainer().front()->pos().y);
 		
 		for (auto it = m_pop.getContainer().begin(); it != m_pop.getContainer().end() - 1; ++it)
 		{
 			auto nit = it + 1;
-			float d = it->getSpeed().lengthSquared();
-			float c = ofMap(d, m_min, m_max, 85, 170, true);
+			float d = (*it)->getSpeed().lengthSquared();
+			float c = ofMap(d, 0, m_max, 0, 42, true);
 			if (m_save_svg)
 			{
 				ofSetColor(0);
@@ -124,22 +187,24 @@ void ofApp::draw(){
 			}
 			else
 			{
-				color.setHsb(c, 255, 255);
+				color.setHsb(42-c, 255, 255);
 				ofSetColor(color);
 				
 			}
 			if (! m_save_svg && m_contour) 
-				ofLine(it->getPos(), nit->getPos());
-			path.curveTo(nit->pos().x, nit->pos().y);
+				ofLine((*it)->getPos(), (*nit)->getPos());
+			if (m_save_svg || m_draw_fill)
+				path.curveTo((*nit)->pos().x, (*nit)->pos().y);
 			
 			if (d < min) min = d;
 			if (d > max) max = d;
 			
 		}
 		if (!m_save_svg && m_contour)
-			ofLine(m_pop.getContainer().back().pos(), m_pop.getContainer().front().pos());
-		path.curveTo(m_pop.getContainer().front().pos().x, m_pop.getContainer().front().pos().y);
-		path.curveTo(m_pop.getContainer().at(1).pos().x, m_pop.getContainer().at(1).pos().y);
+			ofLine(m_pop.getContainer().back()->pos(), m_pop.getContainer().front()->pos());
+		
+		path.curveTo(m_pop.getContainer().front()->pos().x, m_pop.getContainer().front()->pos().y);
+		path.curveTo(m_pop.getContainer().at(1)->pos().x, m_pop.getContainer().at(1)->pos().y);
 					
 		if (!m_save_svg)
 		{
@@ -149,10 +214,16 @@ void ofApp::draw(){
 			path.setStrokeWidth(0);
 
 		}
-		path.draw();
+		if (m_save_svg || m_draw_fill)
+			path.draw();
+
 		if (m_save_svg)
 		{
-			
+			ofPushStyle();
+			ofSetColor(255, 0, 0);
+			ofDrawLine(-5, 0, 5, 0);
+			ofDrawLine(0, -5, 0, 5);
+			ofPopStyle();
 			ofEndSaveScreenAsSVG();
 			m_save_svg = false;
 		}
@@ -162,19 +233,28 @@ void ofApp::draw(){
 	}
 	
 	
+	
+	ofPopMatrix();
+
 	for (auto cit = m_pop.getContainer().begin(); cit != m_pop.getContainer().end(); ++cit)
 	{
-		cit->clearSpeed();
-
+		(*cit)->clearSpeed();
 	}
-	cout << endl ;
+	m_pop.add_iteration();
 
+
+	// display info
+#if 0
+	ofPushMatrix();
+	ofTranslate(ofGetViewportWidth() - 256, 0, 0);
+	m_pop.displayGrid();
 	ofPopMatrix();
+#endif
 	ofSetColor(0, 255, 255);
 	
 	ostringstream s;
 	
-	s << "N :" << ofGetFrameNum() << " FPS :" << ofGetFrameRate() << " cell :" << m_pop.getContainer().size() << " ";
+	s << "N :" << m_pop.getiteration() << " FPS :" << ofGetFrameRate() << " cell :" << m_pop.getContainer().size() << " ";
 
 
 	ofDrawBitmapString(s.str(), 10, 10);
@@ -245,10 +325,13 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 void ofApp::onOnline()
 {
+	cout << "mqtt going online" << endl;
 }
 
 void ofApp::onOffline()
 {
+	cout << "mqtt going offline" << endl;
+	
 }
 void ofApp::onHelp()
 {
@@ -276,6 +359,18 @@ void ofApp::onContour(std::string msg)
 		
 	m_contour  = (factor > 0.0) ? true : false;
 }
+
+void ofApp::onFill(std::string msg)
+{
+	istringstream s(msg);
+	string cmd;
+	float factor = 0;
+
+	s >> cmd >> factor;
+
+	m_draw_fill = (factor > 0.0) ? true : false;
+}
+
 void ofApp::onSpeed (std::string msg)
 {
 	istringstream s(msg);
@@ -386,6 +481,18 @@ void ofApp::onMaxPts(std::string msg)
 		m_maxpts = (size_t) factor;
 	}
 }
+
+void ofApp::onDie(std::string msg)
+{
+	istringstream s(msg);
+	string cmd;
+	float factor = 0;
+
+	s >> cmd >> factor;
+
+	m_dieprob = factor;
+	
+}
 void ofApp::onMessage(ofxMQTTMessage & msg)
 {
 	cout << msg.topic << " " << msg.payload << endl;
@@ -394,9 +501,15 @@ void ofApp::onMessage(ofxMQTTMessage & msg)
 	if (m_last_message.find("reset") != -1)
 	{
 		m_pop.getContainer().clear();
-		for (int i = 0; i < 360; i +=360 / m_nb_start_pt)
+		m_pop.delete_all_cell();
+		m_pop.setiteration(0);
+
+		for (float i = 0; i < 360.; i += 360. / m_nb_start_pt)
 		{
-			m_pop.getContainer().push_back(CCell(cos(ofDegToRad(i)) * 16, sin(ofDegToRad(i)) * 16));
+			CCell cell (cos(ofDegToRad(i)) * 32, sin(ofDegToRad(i)) * 32);
+
+			m_pop.addCell(cell);
+				
 		}
 	}
 	else if (m_last_message.find("scale") != -1)
@@ -430,6 +543,14 @@ void ofApp::onMessage(ofxMQTTMessage & msg)
 	else if (m_last_message.find("speed") != -1)
 	{
 		onSpeed(m_last_message);
+	}
+	else if (m_last_message.find("fill") != -1)
+	{
+		onFill(m_last_message);
+	}
+	else if (m_last_message.find("dieproba") != -1)
+	{
+		onDie(m_last_message);
 	}
 	else if (m_last_message.find("help") != -1)
 	{

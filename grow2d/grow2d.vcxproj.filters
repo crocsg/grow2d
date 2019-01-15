@@ -97,12 +97,26 @@
     <ClCompile Include="src\RuleRepulse.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\RuleCenter.cpp" />
     <ClCompile Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp">
       <Filter>addons\ofxVectorGraphics\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.cpp">
       <Filter>addons\ofxVectorGraphics\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CellGrid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleCenter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CellGridWorld.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CellPopulation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuleRepulseGrid.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +265,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp">
       <Filter>addons\ofxVectorGraphics\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CellGrid.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CellGridWorld.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RuleRepulseGrid.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CellMemContainer.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

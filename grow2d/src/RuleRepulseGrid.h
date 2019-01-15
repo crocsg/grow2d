@@ -3,11 +3,11 @@
 #include "Rule.h"
 
 #define MAX_DIST 12
-class CRuleRepulse : public CRule
+class CRuleRepulseGrid : public CRule
 {
 public:
-	CRuleRepulse() {};
-	CRuleRepulse(float coef) { m_coef = coef; };
+	CRuleRepulseGrid() {};
+	CRuleRepulseGrid(float coef) { m_coef = coef; };
 	virtual void getspeed(CPopulation& pop, float param) override;
 
 	ofVec3f repulse(CCell* pcur, CCell *pnext)
@@ -20,7 +20,7 @@ public:
 			v = pcur->pos() - pnext->pos();
 			v /= d;
 		}
-		
+
 
 		return (v);
 	}

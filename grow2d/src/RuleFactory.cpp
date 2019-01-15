@@ -4,6 +4,7 @@
 #include "RuleMiddle.h"
 #include "RuleSpring.h"
 #include "RuleRepulse.h"
+#include "RuleRepulseGrid.h"
 #include "RuleCenter.h"
 
 CRule * CRuleFactory::BuildRule(RULE_TYPE type, float coef)
@@ -32,7 +33,8 @@ CRule * CRuleFactory::BuildRule(RULE_TYPE type)
 		prule = new CRuleSpring();
 		break;
 	case REPULSE:
-		prule = new CRuleRepulse();
+		//prule = new CRuleRepulse();
+		prule = new CRuleRepulseGrid();
 		break;
 	case CENTER:
 		prule = new CRuleCenter();

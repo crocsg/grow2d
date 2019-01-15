@@ -10,7 +10,7 @@ class CRuleSpring : public CRule
 public:
 	CRuleSpring() {};
 	CRuleSpring(float coef) { m_coef = coef; };
-	virtual void getspeed(cell_container & cells, float param) override;
+	virtual void getspeed(CPopulation& pop, float param) override;
 
 	ofVec3f spring(CCell* pcur, CCell *pnext)
 	{
@@ -22,12 +22,13 @@ public:
 			v = pcur->pos() - pnext->pos();
 			if (d < 1) d = 1;
 			v /= d;
+			v.limit(2);
 		}
 		else if (d > DIST_R2 * DIST_R2)
 		{
 			v = pnext->pos() - pcur->pos();
-			v.normalize ();
 			v *= (d - DIST_R2 * DIST_R2) *0.1;
+			v.limit(2);
 		}
 
 		return (v);

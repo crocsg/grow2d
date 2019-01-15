@@ -14,3 +14,4 @@ float dist2(ofVec3f a, ofVec3f b)
 
 	return (dt.x * dt.x + dt.y * dt.y + dt.z * dt.z);
 }
+

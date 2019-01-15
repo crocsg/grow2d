@@ -58,6 +58,20 @@ public:
 			m_pos += m_speed * speed;
 		#endif
 	}
+
+	void limitposition(float minx, float maxx, float miny, float maxy)
+	{
+		if (m_pos.x < minx)
+			m_pos.x = minx;
+		if (m_pos.x > maxx)
+			m_pos.x = maxx;
+		if (m_pos.y < miny)
+			m_pos.y = miny;
+		if (m_pos.y > maxy)
+			m_pos.y = maxy;
+
+	}
+
 	void clearSpeed()
 	{
 		#if DEBUG_RULES
@@ -68,9 +82,18 @@ public:
 		#endif
 	}
 
+	CCell * getprev() { return m_pprev; }
+	CCell * getnext() { return m_pnext; }
+	void setnext(CCell* ptr) { m_pnext = ptr; }
+	void setprev(CCell* ptr) { m_pprev = ptr; }
+
 private:
 	ofVec3f m_pos;
-	float m_radius;
+	float	m_radius;
+	int		m_count;
+
+	CCell* m_pnext;
+	CCell* m_pprev;
 
 #if DEBUG_RULES
 	std::vector<ofVec3f> m_speed;
