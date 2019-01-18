@@ -46,6 +46,7 @@ void ofApp::setup(){
 	m_save_svg = false;
 	m_contour = true;
 	m_draw_fill = false;
+	m_curve_svg = false;
 	
 	m_dieprob = 0;
 
@@ -173,7 +174,11 @@ void ofApp::draw(){
 		path.setFilled(false);
 		path.setStrokeWidth(1);
 		path.setStrokeColor(ofColor(0,0,0));
-		path.curveTo(m_pop.getContainer().front()->pos().x, m_pop.getContainer().front()->pos().y);
+
+		if (m_curve_svg)
+			path.curveTo(m_pop.getContainer().front()->pos().x, m_pop.getContainer().front()->pos().y);
+		else
+			path.moveTo(m_pop.getContainer().front()->pos().x, m_pop.getContainer().front()->pos().y);
 		
 		for (auto it = m_pop.getContainer().begin(); it != m_pop.getContainer().end() - 1; ++it)
 		{
@@ -194,7 +199,12 @@ void ofApp::draw(){
 			if (! m_save_svg && m_contour) 
 				ofLine((*it)->getPos(), (*nit)->getPos());
 			if (m_save_svg || m_draw_fill)
-				path.curveTo((*nit)->pos().x, (*nit)->pos().y);
+			{
+				if (m_curve_svg)
+					path.curveTo((*nit)->pos().x, (*nit)->pos().y);
+				else
+					path.lineTo((*nit)->pos().x, (*nit)->pos().y);
+			}
 			
 			if (d < min) min = d;
 			if (d > max) max = d;
@@ -203,9 +213,14 @@ void ofApp::draw(){
 		if (!m_save_svg && m_contour)
 			ofLine(m_pop.getContainer().back()->pos(), m_pop.getContainer().front()->pos());
 		
-		path.curveTo(m_pop.getContainer().front()->pos().x, m_pop.getContainer().front()->pos().y);
-		path.curveTo(m_pop.getContainer().at(1)->pos().x, m_pop.getContainer().at(1)->pos().y);
-					
+		if (m_curve_svg)
+		{
+			path.curveTo(m_pop.getContainer().front()->pos().x, m_pop.getContainer().front()->pos().y);
+			path.curveTo(m_pop.getContainer().at(1)->pos().x, m_pop.getContainer().at(1)->pos().y);
+		}
+		
+		path.close();
+
 		if (!m_save_svg)
 		{
 			path.setFilled(true);

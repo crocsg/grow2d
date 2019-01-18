@@ -55,8 +55,10 @@ class ofApp : public ofBaseApp{
 		int m_nb_start_pt;
 		bool m_save;
 		bool m_save_svg;
+		bool m_curve_svg;
 		bool m_contour;
 		bool m_draw_fill;
+		
 
 		float m_dieprob;
 
