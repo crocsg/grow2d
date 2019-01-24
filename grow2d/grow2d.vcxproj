@@ -95,9 +95,10 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxMQTT\src;..\..\..\addons\ofxMQTT\libs\mosquitto\src;
-I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;
-I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;
+..\..\..\addons\ofxXmlSettings\libs;
+..\..\..\addons\ofxMQTT\src;
+..\..\..\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -116,9 +117,6 @@ I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDi
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxMQTT\src;..\..\..\addons\ofxMQTT\libs\mosquitto\src;
-I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;
-I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -137,9 +135,10 @@ I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDi
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxMQTT\src;..\..\..\addons\ofxMQTT\libs\mosquitto\src;
-I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;
-I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;
+..\..\..\addons\ofxXmlSettings\libs;
+..\..\..\addons\ofxMQTT\src;
+..\..\..\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -166,9 +165,10 @@ I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDi
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxMQTT\src;..\..\..\addons\ofxMQTT\libs\mosquitto\src;
-I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\src;
-I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;
+..\..\..\addons\ofxXmlSettings\libs;
+..\..\..\addons\ofxMQTT\src;
+..\..\..\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -202,8 +202,6 @@ I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDi
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\util_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\src\ofxMQTT.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
@@ -242,9 +240,6 @@ I:\home\of_v0.9.8_vs_release\addons\ofxVectorGraphics\libs;%(AdditionalIncludeDi
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\util_mosq.h" />
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.h" />
     <ClInclude Include="..\..\..\addons\ofxMQTT\src\ofxMQTT.h" />
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
     <ClInclude Include="src\CellMemContainer.h" />

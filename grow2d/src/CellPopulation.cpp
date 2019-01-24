@@ -84,8 +84,7 @@ void CPopulation::removecell(CCell *ptr)
 			if (ptr->getnext() != nullptr)
 				ptr->getnext()->setprev(ptr->getprev());
 			m_pop.erase(it);
-
-			size_t gx, gy;
+						
 			CCellContainer *pcont = m_posgrid.getCellGrid(ptr->pos().x, ptr->pos().y);
 			if (pcont != nullptr)
 			{

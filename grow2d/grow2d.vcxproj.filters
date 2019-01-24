@@ -97,12 +97,6 @@
     <ClCompile Include="src\RuleRepulse.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.cpp">
-      <Filter>addons\ofxVectorGraphics\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.cpp">
-      <Filter>addons\ofxVectorGraphics\libs</Filter>
-    </ClCompile>
     <ClCompile Include="src\CellGrid.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -149,15 +143,6 @@
     </Filter>
     <Filter Include="addons\ofxMQTT\libs\mosquitto\src">
       <UniqueIdentifier>{a2d3a3b7-80ba-45d2-b995-f56268af03ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxVectorGraphics">
-      <UniqueIdentifier>{e2edf313-9bdd-470a-ba96-84b2161135d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxVectorGraphics\src">
-      <UniqueIdentifier>{c2987b56-edf5-45f6-91e8-be518a567b4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxVectorGraphics\libs">
-      <UniqueIdentifier>{ae641fa6-4523-4a00-bfcc-4732b02a4486}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -256,15 +241,6 @@
     </ClInclude>
     <ClInclude Include="src\RuleCenter.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\src\ofxVectorGraphics.h">
-      <Filter>addons\ofxVectorGraphics\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS.hpp">
-      <Filter>addons\ofxVectorGraphics\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxVectorGraphics\libs\CreEPS_Types.hpp">
-      <Filter>addons\ofxVectorGraphics\libs</Filter>
     </ClInclude>
     <ClInclude Include="src\CellGrid.h">
       <Filter>src</Filter>

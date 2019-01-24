@@ -6,13 +6,15 @@ const size_t WORLDSIZEY = 1024;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	m_clientmqtt.begin("devmqtt");
-	m_clientmqtt.connect("ofx");
-	m_clientmqtt.subscribe("/ofx/cell/param/input");
+	m_renewmqtt = false;
+	m_pclientmqtt = new ofxMQTT();
+	m_pclientmqtt->begin("devmqtt");
+	m_pclientmqtt->connect("ofx");
+	m_pclientmqtt->subscribe("/ofx/cell/param/input");
 
-	ofAddListener(m_clientmqtt.onOnline, this, &ofApp::onOnline);
-	ofAddListener(m_clientmqtt.onOffline, this, &ofApp::onOffline);
-	ofAddListener(m_clientmqtt.onMessage, this, &ofApp::onMessage); 
+	ofAddListener(m_pclientmqtt->onOnline, this, &ofApp::onOnline);
+	ofAddListener(m_pclientmqtt->onOffline, this, &ofApp::onOffline);
+	ofAddListener(m_pclientmqtt->onMessage, this, &ofApp::onMessage); 
 
 	CRuleFactory rf;
 	m_nb_start_pt = 100;
@@ -52,6 +54,9 @@ void ofApp::setup(){
 
 	m_min = 0;
 	m_max = 1;
+
+	ofSetFrameRate(60);
+	ofSetBackgroundAuto(false);
 }
 
 //--------------------------------------------------------------
@@ -59,8 +64,29 @@ void ofApp::update(){
 
 	try
 	{
-		m_clientmqtt.update();
+		if (m_renewmqtt)
+		{
+			
+			cout << "mqtt try reconnect" << endl;
+			
 
+			m_pclientmqtt->disconnect();
+			delete m_pclientmqtt;
+			m_pclientmqtt = new ofxMQTT();
+
+			m_pclientmqtt->begin("devmqtt");
+			m_pclientmqtt->connect("ofx");
+			m_pclientmqtt->subscribe("/ofx/cell/param/input");
+
+			ofAddListener(m_pclientmqtt->onOnline, this, &ofApp::onOnline);
+			ofAddListener(m_pclientmqtt->onOffline, this, &ofApp::onOffline);
+			ofAddListener(m_pclientmqtt->onMessage, this, &ofApp::onMessage);
+
+			m_pclientmqtt->connect("ofx");
+			m_renewmqtt = false;
+		}
+		m_pclientmqtt->update();
+		/*
 		if (!m_clientmqtt.connected())
 		{
 			cout << "mqtt try reconnect" << endl;
@@ -73,7 +99,7 @@ void ofApp::update(){
 			ofAddListener(m_clientmqtt.onOffline, this, &ofApp::onOffline);
 			ofAddListener(m_clientmqtt.onMessage, this, &ofApp::onMessage);
 		}
-		
+		*/
 			
 
 		for (auto it = m_rules.begin(); it != m_rules.end(); ++it)
@@ -149,6 +175,7 @@ void ofApp::draw(){
 
 	ofBackground(32);
 	ofNoFill();
+	ofEnableAntiAliasing();
 	ofSetColor(255, 255, 0);
 
 	if (m_save_svg)
@@ -275,19 +302,16 @@ void ofApp::draw(){
 	ofDrawBitmapString(s.str(), 10, 10);
 	ofDrawBitmapString(m_last_message, 10, 24);
 
-	if (m_save)
-	{
-		m_output.endEPS();
-		m_save = false;
-	}
+	
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
+void ofApp::keyPressed(int key) {
 	if (key == 'S' || key == 's')
 		m_save_svg = true;
+	else if (key == ' ')
+		m_pclientmqtt->publish("/ofx/cell/output", "space");
 }
-
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
 
@@ -345,12 +369,13 @@ void ofApp::onOnline()
 
 void ofApp::onOffline()
 {
-	cout << "mqtt going offline" << endl;
+	m_renewmqtt = true;
+
 	
 }
 void ofApp::onHelp()
 {
-	m_clientmqtt.publish("/ofx/cell/output", "reset\n");
+	m_pclientmqtt->publish("/ofx/cell/output", "reset\n");
 }
 void ofApp::onScale(std::string msg)
 {
@@ -375,6 +400,16 @@ void ofApp::onContour(std::string msg)
 	m_contour  = (factor > 0.0) ? true : false;
 }
 
+void ofApp::onCurve(std::string msg)
+{
+	istringstream s(msg);
+	string cmd;
+	float factor = 0;
+
+	s >> cmd >> factor;
+
+	m_curve_svg = (factor > 0.0) ? true : false;
+}
 void ofApp::onFill(std::string msg)
 {
 	istringstream s(msg);
@@ -519,13 +554,12 @@ void ofApp::onMessage(ofxMQTTMessage & msg)
 		m_pop.delete_all_cell();
 		m_pop.setiteration(0);
 
-		for (float i = 0; i < 360.; i += 360. / m_nb_start_pt)
+		for (float i = 0; i < 360.0; i += 360. / m_nb_start_pt)
 		{
-			CCell cell (cos(ofDegToRad(i)) * 32, sin(ofDegToRad(i)) * 32);
-
-			m_pop.addCell(cell);
-				
+			m_pop.addCell(CCell(cos(ofDegToRad(i)) * 32, sin(ofDegToRad(i)) * 32));
 		}
+
+		m_pop.updateposition(true);
 	}
 	else if (m_last_message.find("scale") != -1)
 	{
@@ -554,6 +588,10 @@ void ofApp::onMessage(ofxMQTTMessage & msg)
 	else if (m_last_message.find("contour") != -1)
 	{
 		onContour(m_last_message);
+	}
+	else if (m_last_message.find("curve") != -1)
+	{
+		onCurve(m_last_message);
 	}
 	else if (m_last_message.find("speed") != -1)
 	{

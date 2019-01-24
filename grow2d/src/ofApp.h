@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxMQTT.h"
-#include "ofxVectorGraphics.h"
 #include "CellPopulation.h"
 #include "RuleFactory.h"
 
@@ -33,6 +32,7 @@ class ofApp : public ofBaseApp{
 		void onHelp();
 		void onScale(std::string msg);
 		void onContour(std::string msg);
+		void onCurve(std::string msg);
 		void onFill(std::string msg);
 		void onSpeed(std::string msg);
 		void onRepulse(std::string msg);
@@ -43,9 +43,9 @@ class ofApp : public ofBaseApp{
 		void onDie(std::string msg);
 		void onMessage(ofxMQTTMessage &msg);
 
-		ofxMQTT m_clientmqtt;
-		ofxVectorGraphics m_output;
-		
+		ofxMQTT* m_pclientmqtt;
+		bool m_renewmqtt;
+
 		CPopulation m_pop;
 		VRule		m_rules;
 
