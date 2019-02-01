@@ -43,7 +43,7 @@ class ofApp : public ofBaseApp{
 		void onDie(std::string msg);
 		void onMessage(ofxMQTTMessage &msg);
 
-		ofxMQTT* m_pclientmqtt;
+		ofxMQTT m_clientmqtt;
 		bool m_renewmqtt;
 
 		CPopulation m_pop;

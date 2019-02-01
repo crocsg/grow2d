@@ -7,14 +7,14 @@ const size_t WORLDSIZEY = 1024;
 //--------------------------------------------------------------
 void ofApp::setup(){
 	m_renewmqtt = false;
-	m_pclientmqtt = new ofxMQTT();
-	m_pclientmqtt->begin("devmqtt");
-	m_pclientmqtt->connect("ofx");
-	m_pclientmqtt->subscribe("/ofx/cell/param/input");
+	
+	m_clientmqtt.begin("devmqtt");
+	m_clientmqtt.connect("ofx");
+	m_clientmqtt.subscribe("/ofx/cell/param/input");
 
-	ofAddListener(m_pclientmqtt->onOnline, this, &ofApp::onOnline);
-	ofAddListener(m_pclientmqtt->onOffline, this, &ofApp::onOffline);
-	ofAddListener(m_pclientmqtt->onMessage, this, &ofApp::onMessage); 
+	ofAddListener(m_clientmqtt.onOnline, this, &ofApp::onOnline);
+	ofAddListener(m_clientmqtt.onOffline, this, &ofApp::onOffline);
+	ofAddListener(m_clientmqtt.onMessage, this, &ofApp::onMessage); 
 
 	CRuleFactory rf;
 	m_nb_start_pt = 100;
@@ -64,42 +64,8 @@ void ofApp::update(){
 
 	try
 	{
-		if (m_renewmqtt)
-		{
-			
-			cout << "mqtt try reconnect" << endl;
-			
-
-			m_pclientmqtt->disconnect();
-			delete m_pclientmqtt;
-			m_pclientmqtt = new ofxMQTT();
-
-			m_pclientmqtt->begin("devmqtt");
-			m_pclientmqtt->connect("ofx");
-			m_pclientmqtt->subscribe("/ofx/cell/param/input");
-
-			ofAddListener(m_pclientmqtt->onOnline, this, &ofApp::onOnline);
-			ofAddListener(m_pclientmqtt->onOffline, this, &ofApp::onOffline);
-			ofAddListener(m_pclientmqtt->onMessage, this, &ofApp::onMessage);
-
-			m_pclientmqtt->connect("ofx");
-			m_renewmqtt = false;
-		}
-		m_pclientmqtt->update();
-		/*
-		if (!m_clientmqtt.connected())
-		{
-			cout << "mqtt try reconnect" << endl;
-			ofRemoveListener(m_clientmqtt.onOnline, this, &ofApp::onOnline);
-			ofRemoveListener(m_clientmqtt.onOffline, this, &ofApp::onOffline);
-			ofRemoveListener(m_clientmqtt.onMessage, this, &ofApp::onMessage);
-
-			m_clientmqtt.connect("ofx");
-			ofAddListener(m_clientmqtt.onOnline, this, &ofApp::onOnline);
-			ofAddListener(m_clientmqtt.onOffline, this, &ofApp::onOffline);
-			ofAddListener(m_clientmqtt.onMessage, this, &ofApp::onMessage);
-		}
-		*/
+		
+		m_clientmqtt.update();
 			
 
 		for (auto it = m_rules.begin(); it != m_rules.end(); ++it)
@@ -310,7 +276,7 @@ void ofApp::keyPressed(int key) {
 	if (key == 'S' || key == 's')
 		m_save_svg = true;
 	else if (key == ' ')
-		m_pclientmqtt->publish("/ofx/cell/output", "space");
+		m_clientmqtt.publish("/ofx/cell/output", "space");
 }
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
@@ -365,6 +331,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 void ofApp::onOnline()
 {
 	cout << "mqtt going online" << endl;
+	m_clientmqtt.subscribe("/ofx/cell/param/input");
 }
 
 void ofApp::onOffline()
@@ -375,7 +342,7 @@ void ofApp::onOffline()
 }
 void ofApp::onHelp()
 {
-	m_pclientmqtt->publish("/ofx/cell/output", "reset\n");
+	m_clientmqtt.publish("/ofx/cell/output", "reset\n");
 }
 void ofApp::onScale(std::string msg)
 {
