@@ -4,6 +4,7 @@
 
 #define DIST_R1 3
 #define DIST_R2 5
+#define MAX_SPEED 2
 
 class CRuleSpring : public CRule
 {
@@ -22,13 +23,13 @@ public:
 			v = pcur->pos() - pnext->pos();
 			if (d < 1) d = 1;
 			v /= d;
-			v.limit(2);
+			v.limit(MAX_SPEED);
 		}
 		else if (d > DIST_R2 * DIST_R2)
 		{
 			v = pnext->pos() - pcur->pos();
 			v *= (d - DIST_R2 * DIST_R2) *0.1;
-			v.limit(2);
+			v.limit(MAX_SPEED);
 		}
 
 		return (v);

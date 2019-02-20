@@ -6,9 +6,27 @@ const size_t WORLDSIZEY = 1024;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	m_renewmqtt = false;
+	
+	m_cmds = CStringCmdInterpretor ({ 
+		{ "test", this, &ofApp::onTest },
+		
+		{ "brownian",	this, &ofApp::onBrownian },
+		{ "center",		this, &ofApp::onCenter },
+		{ "curve",		this, &ofApp::onCurve   },
+		{ "contour",	this, &ofApp::onContour },
+		{ "dieproba",	this, &ofApp::onDie		},
+		{ "fill",		this, &ofApp::onFill	},
+		{ "help",		this, &ofApp::onHelp },
+		{ "max",		this, &ofApp::onMaxPts	},
+		{ "middle",		this, &ofApp::onMiddle  },
+		{ "repulse",	this, &ofApp::onRepulse },
+		{ "reset",		this, &ofApp::onReset },
+		{ "scale",		this, &ofApp::onScale   },
+		{ "speed",		this, &ofApp::onSpeed },
+	});
 	
 	m_clientmqtt.begin("devmqtt");
+	m_clientmqtt.setProtocol(MQTT_PROTOCOL_V31);
 	m_clientmqtt.connect("ofx");
 	m_clientmqtt.subscribe("/ofx/cell/param/input");
 
@@ -267,8 +285,12 @@ void ofApp::draw(){
 
 	ofDrawBitmapString(s.str(), 10, 10);
 	ofDrawBitmapString(m_last_message, 10, 24);
-
 	
+	ofSetColor(0, 255, 0);
+	for (auto it = m_display.begin(); it != m_display.end(); ++it)
+	{
+		ofDrawBitmapString(it->c_str(), 10, (it - m_display.begin()) * 16 + 64);
+	}
 }
 
 //--------------------------------------------------------------
@@ -336,77 +358,111 @@ void ofApp::onOnline()
 
 void ofApp::onOffline()
 {
-	m_renewmqtt = true;
+	cout << "mqtt going offline" << endl;
+}
 
+void ofApp::onHelp(std::vector<std::string>& param)
+{
 	
+
+	std::vector<std::string> c = m_cmds.getlist();
+	ostringstream s;
+	for (auto it = c.begin(); it != c.end(); ++it)
+		s << *it << std::endl << "\n\r";
+
+	m_clientmqtt.publish("/ofx/cell/output", s.str());
 }
-void ofApp::onHelp()
+void ofApp::onScale(std::vector<std::string>& param)
 {
-	m_clientmqtt.publish("/ofx/cell/output", "reset\n");
-}
-void ofApp::onScale(std::string msg)
-{
-	istringstream s(msg);
-	string cmd;
+	if (param.size() < 2)
+		return;
+	istringstream s(param[1]);
+	
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 
 	if (factor > 0.0)
 		m_scale = factor;
 }
 
-void ofApp::onContour(std::string msg)
+void ofApp::onContour(std::vector<std::string>& cmd)
 {
-	istringstream s(msg);
-	string cmd;
+	if (cmd.size() < 2)
+		return;
+
+	istringstream s(cmd[1]);
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 		
 	m_contour  = (factor > 0.0) ? true : false;
 }
 
-void ofApp::onCurve(std::string msg)
+void ofApp::onCurve(std::vector<std::string>& cmd)
 {
-	istringstream s(msg);
-	string cmd;
+	if (cmd.size() < 2)
+		return;
+
+	istringstream s(cmd[1]);
+
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 
 	m_curve_svg = (factor > 0.0) ? true : false;
 }
-void ofApp::onFill(std::string msg)
+void ofApp::onFill(std::vector<std::string>& cmd)
 {
-	istringstream s(msg);
-	string cmd;
-	float factor = 0;
+	if (cmd.size() < 2) 
+		return;
 
-	s >> cmd >> factor;
+	istringstream s(cmd[1]);
+	
+	float factor = 0;
+	s >> factor;
 
 	m_draw_fill = (factor > 0.0) ? true : false;
 }
 
-void ofApp::onSpeed (std::string msg)
+void ofApp::onSpeed (std::vector<std::string>& cmd)
 {
-	istringstream s(msg);
-	string cmd;
+	if (cmd.size() < 2)
+		return;
+
+	istringstream s(cmd[1]);
+	
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 
 	if (factor > 0.0)
 		m_speed = factor;
 }
 
-void ofApp::onRepulse(std::string msg)
+void ofApp::onReset(std::vector<std::string>& cmd)
 {
-	istringstream s(msg);
-	string cmd;
+	m_pop.getContainer().clear();
+	m_pop.delete_all_cell();
+	m_pop.setiteration(0);
+
+	for (float i = 0; i < 360.0; i += 360. / m_nb_start_pt)
+	{
+		m_pop.addCell(CCell(cos(ofDegToRad(i)) * 32, sin(ofDegToRad(i)) * 32));
+	}
+
+	m_pop.updateposition(true);
+}
+
+void ofApp::onRepulse(std::vector<std::string>& param)
+{
+	if (param.size() < 2)
+		return;
+	istringstream s(param[1]);
+
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 
 	if (factor > 0.0)
 	{
@@ -421,13 +477,15 @@ void ofApp::onRepulse(std::string msg)
 	}
 }
 
-void ofApp::onCenter(std::string msg)
+void ofApp::onCenter(std::vector<std::string>& param)
 {
-	istringstream s(msg);
-	string cmd;
+	if (param.size() < 2)
+		return;
+	istringstream s(param[1]);
+	
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 
 	if (factor > 0.0)
 	{
@@ -442,13 +500,12 @@ void ofApp::onCenter(std::string msg)
 	}
 }
 
-void ofApp::onBrownian(std::string msg)
+void ofApp::onBrownian(std::vector<std::string>& param)
 {
-	istringstream s(msg);
-	string cmd;
+	istringstream s(param[1]);
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 
 	if (factor > 0.0)
 	{
@@ -463,34 +520,34 @@ void ofApp::onBrownian(std::string msg)
 	}
 }
 
-void ofApp::onMiddle(std::string msg)
+void ofApp::onMiddle(std::vector<std::string>& cmd)
 {
-	istringstream s(msg);
-	string cmd;
+	if (cmd.size() < 2)
+		return;
+	istringstream s(cmd[1]);
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >>  factor;
 
-	if (factor > 0.0)
+	for (int i = 0; i < this->m_rules.size(); i++)
 	{
-
-		for (int i = 0; i < this->m_rules.size(); i++)
+		if (m_rules[i]->gettype() == MIDDLE)
 		{
-			if (m_rules[i]->gettype() == MIDDLE)
-			{
-				m_rules[i]->setCoef(factor);
-			}
+			m_rules[i]->setCoef(factor);
 		}
 	}
 }
 
-void ofApp::onMaxPts(std::string msg)
+void ofApp::onMaxPts(std::vector<std::string>& cmd)
 {
-	istringstream s(msg);
-	string cmd;
+	if (cmd.size() < 2)
+		return;
+
+	istringstream s(cmd[1]);
+
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 
 	if (factor > 0.0)
 	{
@@ -499,13 +556,15 @@ void ofApp::onMaxPts(std::string msg)
 	}
 }
 
-void ofApp::onDie(std::string msg)
+void ofApp::onDie(std::vector<std::string>& param)
 {
-	istringstream s(msg);
-	string cmd;
+	if (param.size() < 2)
+		return;
+
+	istringstream s(param[1]);
 	float factor = 0;
 
-	s >> cmd >> factor;
+	s >> factor;
 
 	m_dieprob = factor;
 	
@@ -514,66 +573,12 @@ void ofApp::onMessage(ofxMQTTMessage & msg)
 {
 	cout << msg.topic << " " << msg.payload << endl;
 	m_last_message = msg.payload;
+	
+	m_cmds.execute(m_last_message);
 
-	if (m_last_message.find("reset") != -1)
-	{
-		m_pop.getContainer().clear();
-		m_pop.delete_all_cell();
-		m_pop.setiteration(0);
+}
 
-		for (float i = 0; i < 360.0; i += 360. / m_nb_start_pt)
-		{
-			m_pop.addCell(CCell(cos(ofDegToRad(i)) * 32, sin(ofDegToRad(i)) * 32));
-		}
-
-		m_pop.updateposition(true);
-	}
-	else if (m_last_message.find("scale") != -1)
-	{
-		onScale(m_last_message);
-	}
-	else if (m_last_message.find("brownian") != -1)
-	{
-		onBrownian(m_last_message);
-	}
-	else if (m_last_message.find("repulse") != -1)
-	{
-		onRepulse(m_last_message);
-	}
-	else if (m_last_message.find("center") != -1)
-	{
-		onCenter(m_last_message);
-	}
-	else if (m_last_message.find("middle") != -1)
-	{
-		onMiddle(m_last_message);
-	}
-	else if (m_last_message.find("max") != -1)
-	{
-		onMaxPts(m_last_message);
-	}
-	else if (m_last_message.find("contour") != -1)
-	{
-		onContour(m_last_message);
-	}
-	else if (m_last_message.find("curve") != -1)
-	{
-		onCurve(m_last_message);
-	}
-	else if (m_last_message.find("speed") != -1)
-	{
-		onSpeed(m_last_message);
-	}
-	else if (m_last_message.find("fill") != -1)
-	{
-		onFill(m_last_message);
-	}
-	else if (m_last_message.find("dieproba") != -1)
-	{
-		onDie(m_last_message);
-	}
-	else if (m_last_message.find("help") != -1)
-	{
-		onHelp();
-	}
+void ofApp::onTest(std::vector<std::string>& param)
+{
+	m_display = param;
 }

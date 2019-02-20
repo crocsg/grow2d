@@ -4,6 +4,7 @@
 #include "ofxMQTT.h"
 #include "CellPopulation.h"
 #include "RuleFactory.h"
+#include "StringCmd.h"
 
 class ofApp : public ofBaseApp{
 
@@ -29,23 +30,33 @@ class ofApp : public ofBaseApp{
 
 		void onOnline();
 		void onOffline();
-		void onHelp();
-		void onScale(std::string msg);
-		void onContour(std::string msg);
-		void onCurve(std::string msg);
-		void onFill(std::string msg);
-		void onSpeed(std::string msg);
-		void onRepulse(std::string msg);
-		void onCenter(std::string msg);
-		void onBrownian(std::string msg);
-		void onMiddle(std::string msg);
-		void onMaxPts(std::string msg);
-		void onDie(std::string msg);
+
+		
+		void onBrownian(std::vector<std::string>& param);
+		void onCenter(std::vector<std::string>& param);
+		void onCurve(std::vector<std::string>& cmd);
+		void onContour(std::vector<std::string>& cmd);
+		void onDie(std::vector<std::string>& param);
+		void onFill(std::vector<std::string>& cmd);
+		void onHelp(std::vector<std::string>& param);
+		void onMaxPts(std::vector<std::string>& cmd);
+		void onMiddle(std::vector<std::string>& param);
+		void onRepulse(std::vector<std::string>& param);
+		void onScale(std::vector<std::string>& param);
+		void onSpeed(std::vector<std::string>& cmd);
+		void onTest(std::vector<std::string>& param);
+		void onReset(std::vector<std::string>& cmd);
+		
+		
 		void onMessage(ofxMQTTMessage &msg);
 
 		ofxMQTT m_clientmqtt;
-		bool m_renewmqtt;
+		
 
+		
+		
+
+		CStringCmdInterpretor m_cmds;
 		CPopulation m_pop;
 		VRule		m_rules;
 
@@ -64,4 +75,6 @@ class ofApp : public ofBaseApp{
 
 		float m_min = 0;
 		float m_max = 1;
+
+		std::vector<std::string> m_display;
 };

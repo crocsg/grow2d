@@ -19,60 +19,6 @@
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
       <Filter>addons\ofxXmlSettings\libs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\src\ofxMQTT.cpp">
-      <Filter>addons\ofxMQTT\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\logging_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\memory_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\messages_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mosquitto.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\net_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle_client.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle_shared.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_client_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\socks_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\srv_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\thread_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\time_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\tls_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\util_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.c">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Rule.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -112,6 +58,117 @@
     <ClCompile Include="src\RuleRepulseGrid.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\StringCmd.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\src\ofxMQTT.cpp">
+      <Filter>addons\ofxMQTT\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\actions.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\callbacks.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\connect.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_connack.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_ping.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_pubackcomp.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_publish.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_pubrec.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_pubrel.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_suback.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_unsuback.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\helpers.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\logging_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\loop.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\memory_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\messages_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mosquitto.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\net_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\options.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\packet_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_connect.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_disconnect.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_publish.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_subscribe.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_unsubscribe.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\socks_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\srv_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\thread_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\time_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\tls_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\utf8_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\util_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.c">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -130,19 +187,19 @@
       <UniqueIdentifier>{3398e8e2-6b24-4b87-9d26-4154d98da660}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxMQTT">
-      <UniqueIdentifier>{e4262b5d-47c2-4034-b7a0-08d2d3179ed5}</UniqueIdentifier>
+      <UniqueIdentifier>{ef4e7d4a-4a20-48b9-b1b4-4e216b216e89}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxMQTT\src">
-      <UniqueIdentifier>{5f1f2a80-93b0-410d-a10f-a2c8c16aae45}</UniqueIdentifier>
+      <UniqueIdentifier>{1404783c-7a77-4cab-ad35-c8238832ae8f}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxMQTT\libs">
-      <UniqueIdentifier>{856b1fdd-87d1-4a87-b96c-df390fb0be12}</UniqueIdentifier>
+      <UniqueIdentifier>{0df804bb-e81a-415e-9480-554551d7b009}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxMQTT\libs\mosquitto">
-      <UniqueIdentifier>{2af83a2d-116b-4cf0-96a5-8631dcf6d3fc}</UniqueIdentifier>
+      <UniqueIdentifier>{6b2c9b4f-775d-4360-a1b8-0bdc9ad8601b}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxMQTT\libs\mosquitto\src">
-      <UniqueIdentifier>{a2d3a3b7-80ba-45d2-b995-f56268af03ba}</UniqueIdentifier>
+      <UniqueIdentifier>{5c8f6a3a-0553-4148-a8ee-66e76350e145}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -154,57 +211,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
       <Filter>addons\ofxXmlSettings\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\src\ofxMQTT.h">
-      <Filter>addons\ofxMQTT\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\config.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\dummypthread.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\logging_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\memory_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\messages_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mosquitto.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mosquitto_internal.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mqtt3_protocol.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\net_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\socks_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\time_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\tls_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\util_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.h">
-      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
     </ClInclude>
     <ClInclude Include="src\Cell.h">
       <Filter>src</Filter>
@@ -253,6 +259,63 @@
     </ClInclude>
     <ClInclude Include="src\CellMemContainer.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StringCmd.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\src\ofxMQTT.h">
+      <Filter>addons\ofxMQTT\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\config.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\dummypthread.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\logging_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\memory_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\messages_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mosquitto.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mosquitto_internal.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mqtt3_protocol.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\net_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\packet_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\socks_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\time_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\tls_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\util_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.h">
+      <Filter>addons\ofxMQTT\libs\mosquitto\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

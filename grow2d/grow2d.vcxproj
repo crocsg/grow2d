@@ -95,10 +95,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;
-..\..\..\addons\ofxXmlSettings\libs;
-..\..\..\addons\ofxMQTT\src;
-..\..\..\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxMQTT\src;..\..\..\addons\ofxMQTT\libs\mosquitto\src;
+I:\home\of_v0.9.8_vs_release\addons\ofxMQTT\src;
+I:\home\of_v0.9.8_vs_release\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -119,6 +118,9 @@
       <WarningLevel>Level3</WarningLevel>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>
+I:\home\of_v0.9.8_vs_release\addons\ofxMQTT\src;
+I:\home\of_v0.9.8_vs_release\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -135,10 +137,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;
-..\..\..\addons\ofxXmlSettings\libs;
-..\..\..\addons\ofxMQTT\src;
-..\..\..\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxMQTT\src;..\..\..\addons\ofxMQTT\libs\mosquitto\src;
+I:\home\of_v0.9.8_vs_release\addons\ofxMQTT\src;
+I:\home\of_v0.9.8_vs_release\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -165,10 +166,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;
-..\..\..\addons\ofxXmlSettings\libs;
-..\..\..\addons\ofxMQTT\src;
-..\..\..\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxMQTT\src;..\..\..\addons\ofxMQTT\libs\mosquitto\src;
+I:\home\of_v0.9.8_vs_release\addons\ofxMQTT\src;
+I:\home\of_v0.9.8_vs_release\addons\ofxMQTT\libs\mosquitto\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -184,21 +184,39 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\actions.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\callbacks.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\connect.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_connack.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_ping.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_pubackcomp.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_publish.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_pubrec.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_pubrel.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_suback.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\handle_unsuback.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\helpers.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\logging_mosq.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\loop.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\memory_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\messages_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mosquitto.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\net_mosq.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\options.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\packet_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle.c" />
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle_client.c" />
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle_shared.c" />
-    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_client_mosq.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_connect.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_disconnect.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_mosq.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_publish.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_subscribe.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_unsubscribe.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\socks_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\srv_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\thread_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\time_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\tls_mosq.c" />
+    <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\utf8_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\util_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\will_mosq.c" />
     <ClCompile Include="..\..\..\addons\ofxMQTT\src\ofxMQTT.cpp" />
@@ -221,6 +239,7 @@
     <ClCompile Include="src\RuleMiddle.cpp" />
     <ClCompile Include="src\RuleRepulse.cpp" />
     <ClCompile Include="src\RuleSpring.cpp" />
+    <ClCompile Include="src\StringCmd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\config.h" />
@@ -232,6 +251,7 @@
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mosquitto_internal.h" />
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\mqtt3_protocol.h" />
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\net_mosq.h" />
+    <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\packet_mosq.h" />
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\read_handle.h" />
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\send_mosq.h" />
     <ClInclude Include="..\..\..\addons\ofxMQTT\libs\mosquitto\src\socks_mosq.h" />
@@ -259,6 +279,7 @@
     <ClInclude Include="src\RuleRepulse.h" />
     <ClInclude Include="src\RuleSpring.h" />
     <ClInclude Include="src\RuleTypes.h" />
+    <ClInclude Include="src\StringCmd.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
