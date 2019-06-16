@@ -8,9 +8,7 @@ void CCellGridWorld::begin()
 	m_pgrid = new CCellGrid(m_grid_sizex, m_grid_sizey);
 	m_cell_sizex = m_world_xsize / m_grid_sizex;
 	m_cell_sizey = m_world_ysize / m_grid_sizey;
-
 	
-
 }
 
 void CCellGridWorld::end()

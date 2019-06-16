@@ -22,7 +22,7 @@ public:
 	void removeCell(CCell* ptr);
 
 private:
-	cell_ptr_container			m_cells;
+	cell_ptr_container	m_cells;
 	adjacent_container	m_adjacent_gridcell;
 };
 

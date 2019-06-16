@@ -94,5 +94,5 @@ private:
 
 	std::array< CCellMemContainer, 128000 >	m_arr_cells;
 	cell_container	m_pop;		// cell population
-	CCellGridWorld	m_posgrid;		// population position grid structure
+	CCellGridWorld	m_posgrid;	// population position grid structure
 };
